@@ -1,0 +1,25 @@
+.RootContainer {
+  padding: 5%;
+}
+
+.InnerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 70vh;
+  min-width: 70vw;
+}
+
+@media (max-width: 768px) {
+  .RootContainer {
+    padding: auto;
+  }
+
+  .InnerGrid {
+    grid-template-columns: 1fr;
+  }
+}
