@@ -2,7 +2,6 @@ import { Form, Input, Button } from "antd";
 
 import { initializeApp } from "firebase/app";
 import { setDoc, doc, getFirestore } from "firebase/firestore";
-import { useDocumentOnce } from "react-firebase-hooks/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
