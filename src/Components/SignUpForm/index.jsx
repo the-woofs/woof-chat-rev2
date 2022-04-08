@@ -76,7 +76,7 @@ function SignUpForm() {
       <Form.Item
         label="Username"
         name="username"
-        rules={[{ required: true, message: "Please provide a username!" }]}
+        rules={[{ required: true, message: "Please provide a username." }]}
       >
         <Input />
       </Form.Item>
@@ -84,7 +84,7 @@ function SignUpForm() {
         label="Email Address"
         name="email"
         rules={[
-          { required: true, message: "Please provide your email address!" },
+          { required: true, message: "Please provide your email address." },
         ]}
       >
         <Input />
@@ -93,7 +93,7 @@ function SignUpForm() {
       <Form.Item
         label="Password"
         name="password"
-        rules={[{ required: true, message: "Please provide a password!" }]}
+        rules={[{ required: true, message: "Please provide a password." }]}
       >
         <Input.Password />
       </Form.Item>
@@ -101,13 +101,13 @@ function SignUpForm() {
       <Form.Item
         label="Repeat Password"
         name="confirm"
-        rules={[{ required: true, message: "Please repeat your password!" }]}
+        rules={[{ required: true, message: "Please repeat your password." }]}
       >
         <Input.Password />
       </Form.Item>
 
       <br />
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item wrapperCol={{ offset: 0, span: 32 }}>
         <Button type="primary" htmlType="submit">
           Sign Up
         </Button>
