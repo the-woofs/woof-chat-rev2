@@ -1,10 +1,13 @@
 import "./index.css";
 
 import Auth from "../Auth";
+import Chat from "../Chat";
 
 import { initializeApp } from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGRAK-EfOOggku6WKGxcddXrezCx4qO_0",
@@ -21,7 +24,18 @@ const auth = getAuth();
 function Home() {
   const [user, loading] = useAuthState(auth);
 
-  return <>{!user && !loading && <Auth />}</>;
+  return (
+    <>
+      {!user && !loading && <Auth />}
+      {user && (
+        <Router>
+          <Routes>
+            <Route path="/:chatRoom" element={<Chat />} />
+          </Routes>
+        </Router>
+      )}
+    </>
+  );
 }
 
 export default Home;
