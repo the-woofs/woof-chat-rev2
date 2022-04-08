@@ -1,4 +1,4 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, notification } from "antd";
 import { MailOutlined, KeyOutlined } from "@ant-design/icons";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -6,6 +6,13 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const auth = getAuth();
 
 function SignInForm() {
+  const openNotificationError = (message) => {
+    notification["error"]({
+      message: "Error",
+      description: message,
+    });
+  };
+
   const onFinish = (values) => {
     console.log("Success:", values);
     const { email, password } = values;
@@ -13,11 +20,20 @@ function SignInForm() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(`Error: ${errorCode} ${errorMessage}`);
+        let errorMessage = error.message;
+        console.log(`Error: ${errorCode} | ${errorMessage}`);
+        if (errorCode === "auth/user-not-found") {
+          errorMessage =
+            "The account you are trying to login with doesn't exist.";
+        }
+        if (errorCode === "auth/wrong-password") {
+          errorMessage = "The password you entered is incorrect.";
+        }
+        openNotificationError(errorMessage);
       });
   };
 

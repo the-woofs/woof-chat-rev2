@@ -1,4 +1,4 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, notification } from "antd";
 
 import { initializeApp } from "firebase/app";
 import { setDoc, doc, getFirestore } from "firebase/firestore";
@@ -20,6 +20,13 @@ const db = getFirestore();
 
 function SignUpForm() {
   const [form] = Form.useForm();
+
+  const openNotificationError = (message) => {
+    notification["error"]({
+      message: "Error",
+      description: message,
+    });
+  };
 
   const checkPasswords = (pass1, pass2) => {
     if (pass1 !== pass2) {
@@ -47,6 +54,7 @@ function SignUpForm() {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(`Error: ${errorCode} - ${errorMessage}`);
+          openNotificationError(errorMessage);
           // ..
         });
     } else {
