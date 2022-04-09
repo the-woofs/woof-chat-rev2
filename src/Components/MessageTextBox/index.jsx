@@ -11,7 +11,6 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 
-
 import "./index.css";
 
 const db = getFirestore();

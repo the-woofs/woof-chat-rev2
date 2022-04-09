@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
+import AvatarUpload from "../../Components/AvatarUpload";
 
 const db = getFirestore();
 const auth = getAuth();
@@ -34,6 +35,9 @@ function Profile() {
       <div className="Profile">
         <Card title="Edit Profile" bordered={false} className="CardEdit">
           <Form layout="vertical">
+            <Form.Item label="Avatar">
+              <AvatarUpload />
+            </Form.Item>
             <Form.Item label="Name">
               <Input value={name} onChange={(e) => setName(e.target.value)} />
             </Form.Item>
