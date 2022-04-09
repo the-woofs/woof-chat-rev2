@@ -1,5 +1,19 @@
+.ResponsivePadding {
+  padding: 24px 50px;
+}
+
+* {
+  overflow: hidden;
+}
+
 @media screen and (max-width: 768px) {
-  .Footer {
+  .ResponsivePadding {
     padding: 1rem;
+  }
+  .Header {
+    padding-left: 1rem;
+  }
+  .Content {
+    bottom: 67;
   }
 }

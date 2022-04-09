@@ -1,24 +1,41 @@
-import React from "react";
-import { useParams } from "react-router-dom";
 import "./index.css";
-import { Layout } from "antd";
 
-import Message from "../../Components/Message";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { AutoComplete, Button, Layout } from "antd";
+
 import MessageTextBox from "../../Components/MessageTextBox";
+import ChatContent from "../../Components/ChatContent";
+import ChatMenu from "../../Components/ChatMenu";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import UserInfo from "../../Components/UserInfo";
 
 const { Header, Footer, Sider, Content } = Layout;
 
 function Chat() {
   const { chatRoom } = useParams();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [width, setWidth] = useState(200);
+
+  useEffect(() => {
+    if (isCollapsed) {
+      setWidth(0);
+    } else setWidth(200);
+  }, [isCollapsed]);
 
   return (
     <>
       <Layout hasSider>
         <Sider
           style={{
+            height: "100vh",
             overflow: "auto",
-            minHeight: "100vh",
-            backgroundColor: "#262626",
+            position: "absolute",
+            zIndex: 1,
+            top: 0,
+            left: 0,
+            bottom: 0,
           }}
           breakpoint="lg"
           collapsedWidth="0"
@@ -27,53 +44,92 @@ function Chat() {
           }}
           onCollapse={(collapsed, type) => {
             console.log(collapsed, type);
+            setIsCollapsed(collapsed);
           }}
+          collapsed={isCollapsed}
+          trigger={null}
         >
-          <Header
-            style={{ position: "sticky", top: 0, backgroundColor: "#262626" }}
-          />
+          <Header className="Header">
+            {isOpen && (
+              <Button
+                onClick={() => {
+                  setIsCollapsed(true);
+                }}
+                icon={<MenuFoldOutlined />}
+              />
+            )}
+          </Header>
+          <ChatMenu />
+          <Footer
+            style={{
+              position: "fixed",
+              bottom: 0,
+              zIndex: 1,
+              height: 80,
+              padding: "1rem",
+              width: width,
+              overflow: "hidden",
+              backgroundColor: "#141414",
+            }}
+            className="ResponsivePadding"
+          >
+            <UserInfo />
+          </Footer>
         </Sider>
         <Layout>
-          <Header style={{ position: "sticky", top: 0 }}>
+          <Header
+            className="Header"
+            style={{
+              position: "fixed",
+              top: 0,
+              left: width,
+              right: 0,
+              zIndex: 1,
+              overflow: "hidden",
+              backgroundColor: "#262626",
+            }}
+          >
+            <span>
+              {isCollapsed && (
+                <Button
+                  onClick={() => {
+                    setIsCollapsed(false);
+                    setIsOpen(true);
+                  }}
+                  icon={<MenuUnfoldOutlined />}
+                />
+              )}
+            </span>{" "}
             <h3>{chatRoom}</h3>
           </Header>
           <Content
             style={{
               backgroundColor: "#141414",
-              padding: "24px 50px",
+              position: "fixed",
+              top: 64,
+              bottom: 80,
+              left: width,
+              right: 0,
+              overflow: "auto",
             }}
+            className="ResponsivePadding Content"
           >
-            <Message
-              author="ACuteWoof"
-              message="Hiii"
-              timestamp="Today at 23:09"
-              authorPfp="https://images-ext-2.discordapp.net/external/VVi1Aq8lH-BMI5wHzniBv78QlDjhXoWkAXxqjriULMk/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/618114750827462660/7c8e61ce3c2019cabc761e2e86446717.png"
-              authorId="1"
-            />
-            <Message
-              author="Lazlo"
-              message="Sup Woof"
-              timestamp="Today at 23:10"
-              authorPfp="https://images-ext-2.discordapp.net/external/WOWcNzUcUsctB1JTMxd98gdWAjOixCSKjbPNB-RvCkQ/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/853162603098537985/63f372f86e2bd2bb9a0a268e88d3cb98.png"
-              authorId="1"
-            />
-            <Message
-              author="Husky"
-              message="Hey wanna play Hypixel?"
-              timestamp="Today at 23:10"
-              authorPfp="https://images-ext-1.discordapp.net/external/ReG7ydrs5vuQTTU70QWBEVhQQSAPqw1uKeNFesc7gzU/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/749833732042653708/08a59ff07ef02d847ffcc3cd53b6482a.gif"
-              authorId="1"
-            />
+            <ChatContent chatRoom={chatRoom} />
           </Content>
           <Footer
-            className="Footer"
             style={{
-              position: "sticky",
+              position: "fixed",
               bottom: 0,
+              zIndex: 1,
+              right: 0,
+              left: width,
+              height: 80,
+              overflow: "hidden",
               backgroundColor: "#141414",
             }}
+            className="ResponsivePadding"
           >
-            <MessageTextBox />
+            <MessageTextBox chatRoom={chatRoom} />
           </Footer>
         </Layout>
       </Layout>

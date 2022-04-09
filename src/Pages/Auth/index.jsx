@@ -16,7 +16,7 @@ function Auth() {
           <Card title="Sign In" className="Card">
             <SignInForm />
             <p>
-              Don't Have An Account?
+              Don't Have An Account?{" "}
               <u onClick={() => setIsNew(true)}>Sign Up</u>
             </p>
           </Card>
@@ -25,7 +25,7 @@ function Auth() {
           <Card title="Sign Up" className="Card">
             <SignUpForm />
             <p>
-              Already Have An Account?
+              Already Have An Account?{" "}
               <u onClick={() => setIsNew(false)}>Sign In</u>
             </p>
           </Card>

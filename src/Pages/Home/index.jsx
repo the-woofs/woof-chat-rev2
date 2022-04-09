@@ -7,7 +7,12 @@ import { initializeApp } from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate as Redirect,
+} from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGRAK-EfOOggku6WKGxcddXrezCx4qO_0",
@@ -30,6 +35,7 @@ function Home() {
       {user && (
         <Router>
           <Routes>
+            <Route exact path="/" element={<Redirect to="/WoofChatR2" />} />
             <Route path="/:chatRoom" element={<Chat />} />
           </Routes>
         </Router>

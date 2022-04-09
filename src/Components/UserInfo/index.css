@@ -1,0 +1,16 @@
+.UserInfo {
+  display: grid;
+  grid-template-columns: 40px 1fr 30px;
+  width: 90%;
+  grid-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.UserInfo h1 {
+  margin: 0;
+  padding: 0;
+}
