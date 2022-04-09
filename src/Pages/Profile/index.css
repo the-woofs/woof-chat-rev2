@@ -1,0 +1,36 @@
+.Profile {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.CardEdit {
+  height: 100vh;
+}
+
+.Preview {
+  display: grid;
+  place-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+.PreviewCard {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-gap: 2rem;
+}
+
+.PreviewCard * {
+  text-align: left;
+}
+
+.PreviewCard .Avatar {
+  width: 100px;
+  height: 100px;
+}

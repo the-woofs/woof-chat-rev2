@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
-import { EditOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const db = getFirestore();
 const auth = getAuth();
@@ -13,6 +14,8 @@ function UserInfo() {
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [userDoc] = useDocumentOnce(doc(db, "u", auth.currentUser.uid));
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (userDoc) {
@@ -31,7 +34,14 @@ function UserInfo() {
     <div className="UserInfo">
       <Avatar src={avatar} />
       <strong>{name}</strong>
-      <Button icon={<EditOutlined />} size="small" shape="circle" />
+      <Button
+        onClick={() => {
+          navigate("/profile", { target: "_blank" });
+        }}
+        icon={<UserOutlined />}
+        size="small"
+        shape="circle"
+      />
     </div>
   );
 }

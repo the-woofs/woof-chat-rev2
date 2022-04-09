@@ -32,19 +32,21 @@ function SendTextBox(props) {
   const [form] = Form.useForm();
 
   const sendMessage = () => {
-    const messageRef = doc(collection(db, "chat", chatRoom, "messages"));
-    const textbox = document.getElementById("textbox");
-    setDoc(messageRef, {
-      content: message,
-      authorId: auth.currentUser.uid,
-      createdAt: serverTimestamp(),
-      id: messageRef.id,
-    });
-    form.setFieldsValue({
-      message: "",
-    });
-    setMessage("");
-    textbox.focus();
+    if (message.length > 0) {
+      const messageRef = doc(collection(db, "chat", chatRoom, "messages"));
+      const textbox = document.getElementById("textbox");
+      setDoc(messageRef, {
+        content: message,
+        authorId: auth.currentUser.uid,
+        createdAt: serverTimestamp(),
+        id: messageRef.id,
+      });
+      form.setFieldsValue({
+        message: "",
+      });
+      setMessage("");
+      textbox.focus();
+    }
   };
 
   const onKeyDownFunction = (e) => {
@@ -58,6 +60,7 @@ function SendTextBox(props) {
     if (e.target.value.length > 0) {
       setMessage(e.target.value.trim());
     } else {
+      setMessage("");
     }
   };
   return (
