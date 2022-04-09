@@ -6,20 +6,11 @@ import { getAuth } from "firebase/auth";
 import {
   setDoc,
   doc,
-  updateDoc,
   getFirestore,
-  deleteDoc,
   collection,
   serverTimestamp,
-  limit,
-  query,
-  orderBy,
 } from "firebase/firestore";
-import {
-  useCollectionData,
-  useDocumentOnce,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
+
 
 import "./index.css";
 
