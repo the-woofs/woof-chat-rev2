@@ -1,5 +1,5 @@
 import "./index.css";
-import { Avatar, Card, Form, Input } from "antd";
+import { Avatar, Button, Card, Form, Input } from "antd";
 
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
@@ -34,18 +34,49 @@ function Profile() {
     <>
       <div className="Profile">
         <Card title="Edit Profile" bordered={false} className="CardEdit">
-          <Form layout="vertical">
-            <Form.Item label="Avatar">
+          <Form
+            layout="vertical"
+            style={{
+              marginLeft: "-5px",
+            }}
+          >
+            <Form.Item
+              label="Avatar"
+              style={{
+                marginLeft: "5px",
+              }}
+            >
               <AvatarUpload />
             </Form.Item>
-            <Form.Item label="Name">
+            <Form.Item
+              style={{
+                marginLeft: "5px",
+              }}
+              label="Name"
+            >
               <Input value={name} onChange={(e) => setName(e.target.value)} />
             </Form.Item>
-            <Form.Item label="Description">
+            <Form.Item
+              style={{
+                marginLeft: "5px",
+              }}
+              label="Description"
+            >
               <Input.TextArea
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
               />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{
+                  margin: "5px",
+                }}
+              >
+                Save
+              </Button>
             </Form.Item>
           </Form>
         </Card>

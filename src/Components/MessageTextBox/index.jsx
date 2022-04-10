@@ -75,7 +75,7 @@ function SendTextBox(props) {
         <Button
           type="primary"
           icon={<SendOutlined style={{ marginBottom: 3 }} />}
-          style={{ marginBottom: 3 }}
+          style={{ margin: "5px" }}
           onClick={sendMessage}
         >
           Send
