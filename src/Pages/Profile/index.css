@@ -35,3 +35,12 @@
   width: 100px;
   height: 100px;
 }
+
+@media screen and (max-width: 768px) {
+  .Profile {
+    grid-template-columns: 1fr;
+  }
+  .PreviewCard {
+    grid-template-columns: 1fr;
+  }
+}

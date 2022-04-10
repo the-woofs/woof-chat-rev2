@@ -1,9 +1,9 @@
 import "./index.css";
-import { Avatar, Button, Card, Form, Input } from "antd";
+import { Avatar, Button, Card, Form, Input, notification } from "antd";
 
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import { doc, getFirestore } from "firebase/firestore";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 import AvatarUpload from "../../Components/AvatarUpload";
 
@@ -29,6 +29,28 @@ function Profile() {
       }
     }
   }, [userDoc]);
+
+  const onSaveClick = () => {
+          let data;
+          if (desc) {
+            data = {
+              name: name,
+              desc: desc,
+              pfp: avatar,
+            };
+          } else {
+            data = {
+              name: name,
+              pfp: avatar,
+            };
+          }
+          const docRef = doc(db, "u", auth.currentUser.uid);
+          updateDoc(docRef, data);
+          notification["success"]({
+            message: "Saved",
+            description: "Updated profile."
+          });
+  }
 
   return (
     <>
@@ -74,6 +96,9 @@ function Profile() {
                 style={{
                   margin: "5px",
                 }}
+                onClick={
+                  onSaveClick
+                }
               >
                 Save
               </Button>
