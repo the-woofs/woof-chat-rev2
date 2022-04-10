@@ -14,6 +14,7 @@
 .Preview {
   display: grid;
   place-items: center;
+  /* background: url('../../Images/bg.png'); */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

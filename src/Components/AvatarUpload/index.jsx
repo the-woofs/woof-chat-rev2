@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { Avatar, Button } from "antd";
+import { Avatar, Button, notification } from "antd";
 import { useState, useEffect } from "react";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -36,48 +36,51 @@ function AvatarUpload() {
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
-  const upload = () => {
-    console.log("upppp");
-  };
-
   useEffect(() => {
     if (file) {
-      console.log("fileeee");
       const profileRef = ref(
         storage,
         `u/${auth.currentUser.uid}/avatar.${file.name.split(".").pop()}`
       );
+      notification["info"]({
+        message: "Uploading",
+        description: "Uploading avatar...",
+      });
       uploadBytes(profileRef, file).then(() => {
         getDownloadURL(profileRef).then((url) => {
           console.log(url);
           setPreviewUrl(url);
           setAvatar(url);
           console.log(previewUrl);
+          console.log(url);
           let data;
           if (desc) {
             data = {
               name: name,
               desc: desc,
-              pfp: previewUrl,
+              pfp: url,
             };
           } else {
             data = {
               name: name,
-              pfp: previewUrl,
+              pfp: url,
             };
           }
           const docRef = doc(db, "u", auth.currentUser.uid);
           updateDoc(docRef, data);
+          notification["success"]({
+            message: "Uploaded",
+            description: "Avatar uploaded successfully!",
+          });
         });
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
   const onClick = (e) => {
     const file = e.target.files[0];
     setFile(file);
-    upload();
   };
 
   return (

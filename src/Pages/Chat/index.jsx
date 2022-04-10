@@ -36,6 +36,7 @@ function Chat() {
             top: 0,
             left: 0,
             bottom: 0,
+            borderRight: width === 200 ? "1px solid #434343" : "none",
           }}
           breakpoint="lg"
           collapsedWidth="0"
@@ -70,6 +71,8 @@ function Chat() {
               width: width,
               overflow: "hidden",
               backgroundColor: "#141414",
+              borderRight: width === 200 ? "1px solid #434343" : "none",
+              borderTop: "1px solid #434343",
             }}
             className="ResponsivePadding"
           >
@@ -126,6 +129,7 @@ function Chat() {
               height: 80,
               overflow: "hidden",
               backgroundColor: "#141414",
+              borderTop: "1px solid #434343",
             }}
             className="ResponsivePadding"
           >

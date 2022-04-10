@@ -4,7 +4,7 @@ import { Avatar, Card, Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
-import { useDocumentOnce } from "react-firebase-hooks/firestore";
+import { useDocument } from "react-firebase-hooks/firestore";
 import AvatarUpload from "../../Components/AvatarUpload";
 
 const db = getFirestore();
@@ -14,7 +14,7 @@ function Profile() {
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-  const [userDoc] = useDocumentOnce(doc(db, "u", auth.currentUser.uid));
+  const [userDoc] = useDocument(doc(db, "u", auth.currentUser.uid));
 
   useEffect(() => {
     if (userDoc) {
