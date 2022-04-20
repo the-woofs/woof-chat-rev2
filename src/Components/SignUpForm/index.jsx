@@ -37,8 +37,6 @@ function SignUpForm() {
 
   const onFinish = (values) => {
     if (checkPasswords(values.password, values.confirm)) {
-      console.log(values);
-
       createUserWithEmailAndPassword(auth, values.email, values.password)
         .then((userCredential) => {
           const user = userCredential.user;
@@ -62,7 +60,6 @@ function SignUpForm() {
         password: "",
         confirm: "",
       });
-      console.log("Passwords do not match");
     }
   };
 

@@ -41,7 +41,6 @@ function SendTextBox(props) {
 
   const onKeyDownFunction = (e) => {
     if (e.key === "Enter") {
-      console.log(0);
       sendMessage();
     }
   };

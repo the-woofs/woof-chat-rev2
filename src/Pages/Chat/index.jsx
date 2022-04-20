@@ -2,13 +2,16 @@ import "./index.css";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AutoComplete, Button, Layout } from "antd";
+import { Button, Layout } from "antd";
 
 import MessageTextBox from "../../Components/MessageTextBox";
 import ChatContent from "../../Components/ChatContent";
 import ChatMenu from "../../Components/ChatMenu";
+import ChatRoomName from "../../Components/ChatRoomName";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import UserInfo from "../../Components/UserInfo";
+import Modal from "antd/lib/modal/Modal";
+import Profile from "../../Components/Profile";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -17,6 +20,7 @@ function Chat() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [width, setWidth] = useState(200);
+  const [profile, setProfile] = useState(false);
 
   useEffect(() => {
     if (isCollapsed) {
@@ -26,6 +30,7 @@ function Chat() {
 
   return (
     <>
+      <Profile visible={profile} setVisible={setProfile} />
       <Layout hasSider>
         <Sider
           style={{
@@ -40,11 +45,7 @@ function Chat() {
           }}
           breakpoint="lg"
           collapsedWidth="0"
-          onBreakpoint={(broken) => {
-            console.log(broken);
-          }}
           onCollapse={(collapsed, type) => {
-            console.log(collapsed, type);
             setIsCollapsed(collapsed);
           }}
           collapsed={isCollapsed}
@@ -76,7 +77,7 @@ function Chat() {
             }}
             className="ResponsivePadding"
           >
-            <UserInfo />
+            <UserInfo setVisible={setProfile} />
           </Footer>
         </Sider>
         <Layout>
@@ -103,7 +104,9 @@ function Chat() {
                 />
               )}
             </span>{" "}
-            <h3>{chatRoom}</h3>
+            <h3>
+              <ChatRoomName chatRoom={chatRoom} />
+            </h3>
           </Header>
           <Content
             style={{

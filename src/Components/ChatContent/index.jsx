@@ -12,6 +12,8 @@ import {
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
+import moment from "moment";
+
 const db = getFirestore();
 
 const AlwaysScrollToBottom = () => {
@@ -29,10 +31,8 @@ function ChatContent(props) {
   const [reverseMessages, setReverseMessages] = useState([]);
 
   useEffect(() => {
-    console.log(document.hasFocus());
     if (existMsgs.length === 0 && messages) {
       setExistMsgs(messages.slice());
-      console.log(existMsgs);
     }
     if (messages) {
       try {
@@ -53,14 +53,7 @@ function ChatContent(props) {
             author={message.authorName}
             authorPfp={message.authorAvatar}
             timestamp={
-              message.createdAt &&
-              message.createdAt.toDate().toLocaleString(undefined, {
-                hour: "numeric",
-                minute: "numeric",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })
+              message.createdAt && moment(message.createdAt.toDate()).fromNow()
             }
             authorId={message.authorId}
             id={message.id}

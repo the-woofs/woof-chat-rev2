@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 const db = getFirestore();
 const auth = getAuth();
 
-function UserInfo() {
+function UserInfo(props) {
+  const { setVisible } = props;
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [userDoc] = useDocumentOnce(doc(db, "u", auth.currentUser.uid));
@@ -36,7 +37,7 @@ function UserInfo() {
       <strong>{name}</strong>
       <Button
         onClick={() => {
-          navigate("/profile", { target: "_blank" });
+          setVisible(true);
         }}
         icon={<UserOutlined />}
         size="small"

@@ -14,13 +14,11 @@ function SignInForm() {
   };
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     const { email, password } = values;
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+        // const user = userCredential.user;
       })
       .catch((error) => {
         const errorCode = error.code;

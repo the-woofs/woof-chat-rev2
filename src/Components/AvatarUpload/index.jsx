@@ -48,11 +48,8 @@ function AvatarUpload() {
       });
       uploadBytes(profileRef, file).then(() => {
         getDownloadURL(profileRef).then((url) => {
-          console.log(url);
           setPreviewUrl(url);
           setAvatar(url);
-          console.log(previewUrl);
-          console.log(url);
           let data;
           if (desc) {
             data = {
