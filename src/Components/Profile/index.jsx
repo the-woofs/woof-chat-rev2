@@ -21,6 +21,8 @@ function Profile(props) {
 
   const [logOutPopup, setLogOutPopup] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (userDoc) {
       setName(userDoc.data().name);
@@ -39,7 +41,7 @@ function Profile(props) {
     if (logOutPopup) {
       setVisible(false);
     }
-  }, [logOutPopup]);
+  }, [logOutPopup, setVisible]);
 
   const onSaveClick = () => {
     let data;
@@ -105,7 +107,14 @@ function Profile(props) {
           Logout
         </Button>
 
-        <Button danger type="primary" onClick={() => {}}>
+        <Button
+          danger
+          type="primary"
+          onClick={() => {
+            navigate("/del");
+            setVisible(false);
+          }}
+        >
           Delete Account
         </Button>
       </Modal>

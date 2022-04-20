@@ -1,10 +1,12 @@
-import { Avatar, Divider, Menu } from "antd";
-import { getFirestore, collection, query } from "firebase/firestore";
+import { Avatar, Button, Divider, Menu } from "antd";
+import { getFirestore, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { PlusOutlined } from "@ant-design/icons";
-import SubMenu from "antd/lib/menu/SubMenu";
+import { useNavigate } from "react-router-dom";
+
+import AddServer from "../AddServer";
 
 const db = getFirestore();
 const auth = getAuth();
@@ -12,6 +14,10 @@ const auth = getAuth();
 function ChatMenu(props) {
   const chatRoomsRef = collection(db, "u", auth.currentUser.uid, "chats");
   const [chatRooms] = useCollectionData(chatRoomsRef);
+
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (chatRooms) {
@@ -21,11 +27,42 @@ function ChatMenu(props) {
 
   return (
     <>
-      <Menu theme="dark" mode="inline">
+      <AddServer visible={menuVisible} setMenuVisible={setMenuVisible} />
+      <Menu
+        style={{
+          height: "calc(100% - 64px)",
+        }}
+        theme="light"
+        mode="inline"
+      >
+        <div
+          style={{
+            textAlign: "center",
+            paddingTop: "16px",
+          }}
+        >
+          <Button
+            style={{
+              margin: "5px",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            icon={<PlusOutlined />}
+            onClick={() => setMenuVisible(true)}
+          >
+            Add Server
+          </Button>
+        </div>
+        <Divider />
         {chatRooms &&
           chatRooms.map((chatRoom) => (
             <Menu.Item
+              style={{
+                height: "45px",
+              }}
               key={chatRoom.id}
+              onClick={() => navigate(`/${chatRoom.id}`)}
               icon={
                 chatRoom.pfp ? (
                   <Avatar src={chatRoom.pfp} />
@@ -36,13 +73,9 @@ function ChatMenu(props) {
                 )
               }
             >
-              <a href={`/${chatRoom.id}`}>{chatRoom.name}</a>
+              {chatRoom.name}
             </Menu.Item>
           ))}
-        <Divider />
-        <Menu.Item icon={<PlusOutlined />}>
-          <a href="/new">Add Server</a>
-        </Menu.Item>
       </Menu>
     </>
   );

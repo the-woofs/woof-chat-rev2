@@ -10,7 +10,6 @@ import ChatMenu from "../../Components/ChatMenu";
 import ChatRoomName from "../../Components/ChatRoomName";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import UserInfo from "../../Components/UserInfo";
-import Modal from "antd/lib/modal/Modal";
 import Profile from "../../Components/Profile";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -41,7 +40,6 @@ function Chat() {
             top: 0,
             left: 0,
             bottom: 0,
-            borderRight: width === 200 ? "1px solid #434343" : "none",
           }}
           breakpoint="lg"
           collapsedWidth="0"
@@ -51,7 +49,13 @@ function Chat() {
           collapsed={isCollapsed}
           trigger={null}
         >
-          <Header className="Header">
+          <Header
+            style={{
+              borderRight: width === 200 ? "1px solid #434343" : "none",
+              backgroundColor: "#141414",
+            }}
+            className="Header"
+          >
             {isOpen && (
               <Button
                 onClick={() => {
