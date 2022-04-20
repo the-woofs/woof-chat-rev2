@@ -1,4 +1,4 @@
-import { Card, Modal, Steps } from "antd";
+import { Button, Divider, Form, Input, Modal } from "antd";
 import { useState } from "react";
 
 function AddServer(props) {
@@ -12,7 +12,12 @@ function AddServer(props) {
 
   return (
     <>
-      <Modal visible={visible} onCancel={() => setMenuVisible(false)}></Modal>
+      <Modal
+        centered
+        title="Add Server"
+        visible={visible}
+        footer={null}
+      ></Modal>
     </>
   );
 }
