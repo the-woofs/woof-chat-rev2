@@ -1,0 +1,24 @@
+.AvatarContainer {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.AvatarContainer .AvatarOverlay {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.AvatarContainer:hover .AvatarOverlay {
+  opacity: 1;
+}
