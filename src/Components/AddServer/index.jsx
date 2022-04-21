@@ -13,7 +13,6 @@ function AddServer(props) {
   const { visible, setMenuVisible } = props;
   const [name, setName] = useState("");
   const [pfp, setPfp] = useState("");
-  const [invite, setInvite] = useState("");
 
   const [docId, setDocId] = useState("");
 
@@ -32,7 +31,6 @@ function AddServer(props) {
     if (!visible) {
       setName("");
       setPfp("");
-      setInvite("");
     }
   }, [visible]);
 
