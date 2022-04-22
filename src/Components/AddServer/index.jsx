@@ -47,6 +47,7 @@ function AddServer(props) {
     <>
       <Modal
         title="Join Server"
+        centered
         visible={join}
         onOk={async () => {
           const docRef = doc(collection(db, "chat"), invite);
