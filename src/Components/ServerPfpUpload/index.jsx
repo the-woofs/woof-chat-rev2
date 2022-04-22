@@ -13,28 +13,25 @@ const storage = getStorage();
 
 function AvatarUpload(props) {
   const { serverId } = props;
-  console.log(serverId)
+  console.log(serverId);
   const [avatar, setAvatar] = useState("");
   const [srvDoc] = useDocumentOnce(doc(db, "chat", serverId));
 
   useEffect(() => {
     if (srvDoc && srvDoc.data) {
-      console.log(srvDoc)
+      console.log(srvDoc);
       if (srvDoc.data().pfp) {
         setAvatar(srvDoc.data().pfp);
       } else {
-        setAvatar(
-          `https://avatars.dicebear.com/api/bottts/${serverId}.svg`
-        );
+        setAvatar(`https://avatars.dicebear.com/api/bottts/${serverId}.svg`);
       }
-    }
-    else {
-      console.log("no doc")
+    } else {
+      console.log("no doc");
       setDoc(doc(db, "chat", serverId), {
         pfp: avatar,
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [srvDoc]);
 
   const [file, setFile] = useState(null);
@@ -52,8 +49,8 @@ function AvatarUpload(props) {
       uploadBytes(profileRef, file).then(() => {
         getDownloadURL(profileRef).then((url) => {
           let data = {
-              pfp: url,
-            };
+            pfp: url,
+          };
           const docRef = doc(db, "chat", serverId);
           updateDoc(docRef, data).then(() => {
             setAvatar(url);
@@ -61,7 +58,7 @@ function AvatarUpload(props) {
               message: "Uploaded",
               description: "Avatar uploaded successfully!",
             });
-          })
+          });
         });
       });
     }
