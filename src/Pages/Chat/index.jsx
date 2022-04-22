@@ -2,7 +2,7 @@ import "./index.css";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Layout } from "antd";
+import { Button, Dropdown, Layout, Menu } from "antd";
 
 import MessageTextBox from "../../Components/MessageTextBox";
 import ChatContent from "../../Components/ChatContent";
@@ -98,6 +98,22 @@ function Chat() {
             }}
           >
             <span>
+              <React.StrictMode>
+              <Dropdown
+                forceRender={true}
+                overlay={
+              <Menu>
+                <Menu.Item>
+                  <a href="
+                  ">
+                    Server Settings
+                  </a>
+                  </Menu.Item>
+              </Menu>
+            }>
+              <a>hover me</a>
+                </Dropdown>
+                </React.StrictMode>
               {isCollapsed && (
                 <Button
                   onClick={() => {
@@ -107,10 +123,10 @@ function Chat() {
                   icon={<MenuUnfoldOutlined />}
                 />
               )}
-            </span>{" "}
-            <h3>
+            <strong>
               <ChatRoomName chatRoom={chatRoom} />
-            </h3>
+            </strong>
+            </span>{" "}
           </Header>
           <Content
             style={{

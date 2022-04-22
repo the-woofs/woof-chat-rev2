@@ -1,5 +1,5 @@
 import "./App.less";
-import "antd/dist/antd.dark.css";
+import "antd/dist/antd.dark.min.css";
 
 import Home from "./Pages/Home";
 

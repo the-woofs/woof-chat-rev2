@@ -2,7 +2,7 @@ import "./index.css";
 
 import Auth from "../Auth";
 import Chat from "../Chat";
-import New from "../New";
+import Test from "../Test";
 
 import { initializeApp } from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -38,6 +38,7 @@ function Home() {
           <Routes>
             <Route exact path="/" element={<Redirect to="/WoofChatR2" />} />
             <Route path="/:chatRoom" element={<Chat />} />
+            <Route path="/t" element={ <Test />} />
           </Routes>
         </Router>
       )}
