@@ -12,7 +12,7 @@ const db = getFirestore();
 const storage = getStorage();
 
 function AvatarUpload(props) {
-  const { serverId } = props;
+  const { serverId, setPfp } = props;
   console.log(serverId);
   const [avatar, setAvatar] = useState("");
   const [srvDoc] = useDocumentOnce(doc(db, "chat", serverId));
@@ -51,6 +51,7 @@ function AvatarUpload(props) {
           let data = {
             pfp: url,
           };
+          setPfp(url)
           const docRef = doc(db, "chat", serverId);
           updateDoc(docRef, data).then(() => {
             setAvatar(url);

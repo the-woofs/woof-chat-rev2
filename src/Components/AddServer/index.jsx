@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getFirestore,
@@ -84,7 +85,9 @@ function AddServer(props) {
             setMenuVisible(false);
           }
         }}
-        onCancel={() => setJoin(false)}
+        onCancel={() => {
+          setJoin(false);
+        }}
       >
         <Form>
           <Form.Item label="Server Invite">
@@ -100,7 +103,22 @@ function AddServer(props) {
         centered
         title="Add Server"
         visible={visible && !join}
-        onCancel={() => setMenuVisible(false)}
+        onCancel={async () => {
+          console.log("cancel");
+          setMenuVisible(false);
+          const docRef = doc(collection(db, "chat"), docId);
+          const docu = await getDoc(docRef);
+
+          console.log(docu);
+          if (docu.exists) {
+            const data = docu.data();
+            const name = data.name;
+            console.log(name);
+            if (!name) {
+              await deleteDoc(docRef);
+            }
+          }
+        }}
         footer={
           <>
             <p
@@ -123,7 +141,7 @@ function AddServer(props) {
       >
         <Form layout="vertical">
           <Form.Item label="Avatar">
-            {docId && <ServerPfpUpload serverId={docId} />}
+            {docId && <ServerPfpUpload serverId={docId} setPfp={setPfp} />}
           </Form.Item>
           <Form.Item label="Server Name">
             <Input
@@ -141,6 +159,7 @@ function AddServer(props) {
               type="primary"
               onClick={async () => {
                 const docRef = doc(collection(db, "chat"), docId);
+                console.log(pfp)
                 const data = {
                   name: name,
                   pfp: pfp,

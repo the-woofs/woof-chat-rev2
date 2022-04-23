@@ -2,13 +2,20 @@ import "./index.css";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Dropdown, Layout, Menu } from "antd";
+import { Button, Dropdown, Layout, Menu, notification } from "antd";
 
 import MessageTextBox from "../../Components/MessageTextBox";
 import ChatContent from "../../Components/ChatContent";
 import ChatMenu from "../../Components/ChatMenu";
 import ChatRoomName from "../../Components/ChatRoomName";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  DownOutlined,
+  UserAddOutlined,
+  EditOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import UserInfo from "../../Components/UserInfo";
 import Profile from "../../Components/Profile";
 
@@ -28,7 +35,7 @@ function Chat() {
   }, [isCollapsed]);
 
   return (
-    <>
+    <div className="Chat">
       <Profile visible={profile} setVisible={setProfile} />
       <Layout hasSider>
         <Sider
@@ -98,35 +105,47 @@ function Chat() {
             }}
           >
             <span>
-              <React.StrictMode>
-              <Dropdown
-                forceRender={true}
-                overlay={
-              <Menu>
-                <Menu.Item>
-                  <a href="
-                  ">
-                    Server Settings
-                  </a>
-                  </Menu.Item>
-              </Menu>
-            }>
-              <a>hover me</a>
-                </Dropdown>
-                </React.StrictMode>
               {isCollapsed && (
                 <Button
                   onClick={() => {
                     setIsCollapsed(false);
                     setIsOpen(true);
                   }}
+                  style={{
+                    marginRight: "1rem",
+                  }}
                   icon={<MenuUnfoldOutlined />}
                 />
               )}
-            <strong>
-              <ChatRoomName chatRoom={chatRoom} />
-            </strong>
-            </span>{" "}
+
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Menu.Item
+                      onClick={() => {
+                        notification["info"]({
+                          message: "Server Invite",
+                          description: `The invitation code of this server is "${chatRoom}".`,
+                        });
+                      }}
+                      icon={<UserAddOutlined />}
+                    >
+                      Get Invite
+                    </Menu.Item>
+                    <Menu.Item icon={<EditOutlined />}>Edit Server</Menu.Item>
+                    <Menu.Item icon={<CloseOutlined />}>Leave Server</Menu.Item>
+                  </Menu>
+                }
+              >
+                <span>
+                  <strong>
+                    <ChatRoomName chatRoom={chatRoom} />
+                    {"  "}
+                    <DownOutlined />
+                  </strong>
+                </span>
+              </Dropdown>
+            </span>
           </Header>
           <Content
             style={{
@@ -160,7 +179,7 @@ function Chat() {
           </Footer>
         </Layout>
       </Layout>
-    </>
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import "./App.less";
-import "antd/dist/antd.dark.min.css";
 
 import Home from "./Pages/Home";
+import "antd/dist/antd.dark.min.css";
 
 function App() {
   return <Home />;

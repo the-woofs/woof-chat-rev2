@@ -2,7 +2,8 @@
   padding: 24px 50px;
 }
 
-* {
+.Chat,
+.Chat * {
   overflow: hidden;
 }
 

@@ -1,5 +1,3 @@
-import "./index.css";
-
 import Auth from "../Auth";
 import Chat from "../Chat";
 import Test from "../Test";
@@ -38,7 +36,7 @@ function Home() {
           <Routes>
             <Route exact path="/" element={<Redirect to="/WoofChatR2" />} />
             <Route path="/:chatRoom" element={<Chat />} />
-            <Route path="/t" element={ <Test />} />
+            <Route path="/t" element={<Test />} />
           </Routes>
         </Router>
       )}

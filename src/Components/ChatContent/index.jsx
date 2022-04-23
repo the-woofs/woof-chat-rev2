@@ -44,7 +44,7 @@ function ChatContent(props) {
   }, [messages, chatRoom, existMsgs, reverseMessages]);
 
   return (
-    <div>
+    <div className="ChatContent">
       {reverseMessages &&
         reverseMessages.map((message) => (
           <Message
