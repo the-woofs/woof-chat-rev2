@@ -57,10 +57,8 @@ function Conditional404() {
 
   const navigate = useNavigate();
 
-  if (document) {
+  if (document || loading) {
     return <Chat />;
-  } else if (loading) {
-    return <div>Loading...</div>;
   } else {
     return (
       <>
