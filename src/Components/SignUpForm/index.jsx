@@ -83,7 +83,7 @@ function SignUpForm() {
         name="username"
         rules={[{ required: true, message: "Please provide a username." }]}
       >
-        <Input maxLength={8} />
+        <Input maxLength={16} />
       </Form.Item>
       <Form.Item
         label="Email Address"
