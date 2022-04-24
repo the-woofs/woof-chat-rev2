@@ -40,11 +40,10 @@ function ChatMenu(props) {
               setChatRooms((chatRooms) => [...chatRooms, chatRoom]);
             }
           }
-        } 
-        );
+        });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatRoomsProf]);
 
   return (

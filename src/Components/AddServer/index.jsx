@@ -25,6 +25,7 @@ function AddServer(props) {
 
   const [create, setCreate] = useState(false);
   const [invite, setInvite] = useState("");
+  const [joinType, setJoinType] = useState("ghost");
 
   const navigate = useNavigate();
 
@@ -48,11 +49,9 @@ function AddServer(props) {
     <>
       <Modal
         title="Join Server"
-        onCancel={
-          () => {
-            setMenuVisible(false);
-          }
-        }
+        onCancel={() => {
+          setMenuVisible(false);
+        }}
         centered
         footer={
           <>
@@ -75,57 +74,54 @@ function AddServer(props) {
         }
         visible={visible}
       >
-        <Form
-                   
-        >
-          <Form.Item label="Server Invite"
-
-          >
+        <Form layout="vertical">
+          <Form.Item label="Server Invite">
             <Input
               value={invite}
               onChange={(e) => setInvite(e.target.value)}
               placeholder="Server Invite"
             />
           </Form.Item>
-          <Form.Item
-          >
-            <Button block type="primary" onClick={
-async () => {
-          const docRef = doc(collection(db, "chat"), invite);
-          const docu = await getDoc(docRef);
-          if (docu.exists) {
-            const data = docu.data();
-            const name = data.name;
-            const pfp = data.pfp;
+          <Form.Item>
+            <Button
+              block
+              disabled={!invite}
+              type="primary"
+              onClick={async () => {
+                const docRef = doc(collection(db, "chat"), invite);
+                const docu = await getDoc(docRef);
+                if (docu.exists) {
+                  const data = docu.data();
+                  const name = data.name;
+                  const pfp = data.pfp;
 
-            if (pfp) {
-              await setDoc(
-                doc(db, "u", auth.currentUser.uid, "chats", invite),
-                {
-                  id: invite,
-                  name: name,
-                  pfp: pfp,
+                  if (pfp) {
+                    await setDoc(
+                      doc(db, "u", auth.currentUser.uid, "chats", invite),
+                      {
+                        id: invite,
+                        name: name,
+                        pfp: pfp,
+                      }
+                    );
+                  } else {
+                    await setDoc(
+                      doc(db, "u", auth.currentUser.uid, "chats", invite),
+                      {
+                        id: invite,
+                        name: name,
+                      }
+                    );
+                  }
+                  await setDoc(
+                    doc(db, "chat", invite, "members", auth.currentUser.uid),
+                    { id: auth.currentUser.uid }
+                  );
+                  navigate(`/${docId}`);
+                  setMenuVisible(false);
+                  setCreate(false);
                 }
-              );
-            } else {
-              await setDoc(
-                doc(db, "u", auth.currentUser.uid, "chats", invite),
-                {
-                  id: invite,
-                  name: name,
-                }
-              );
-            }
-            await setDoc(
-              doc(db, "chat", invite, "members", auth.currentUser.uid),
-              { id: auth.currentUser.uid }
-            );
-            navigate(`/${docId}`);
-            setMenuVisible(false);
-            setCreate(false);
-          }
-        }
-            } 
+              }}
             >
               Join
             </Button>
@@ -153,7 +149,6 @@ async () => {
             }
           }
         }}
-
       >
         <Form layout="vertical">
           <Form.Item label="Avatar">
@@ -173,9 +168,10 @@ async () => {
           <Form.Item>
             <Button
               type="primary"
+              disabled={!name}
               onClick={async () => {
                 const docRef = doc(collection(db, "chat"), docId);
-                console.log(pfp)
+                console.log(pfp);
                 const data = {
                   name: name,
                   pfp: pfp,

@@ -28,7 +28,7 @@ function Chat() {
   const [isOpen, setIsOpen] = useState(false);
   const [width, setWidth] = useState(200);
   const [profile, setProfile] = useState(false);
-  
+
   const [editSrv, setEditSrv] = useState(false);
 
   useEffect(() => {
@@ -39,9 +39,13 @@ function Chat() {
 
   return (
     <div className="Chat">
-      {
-        editSrv && <EditServer visible={editSrv} setVisible={setEditSrv} serverId={ chatRoom } /> 
-      }
+      {editSrv && (
+        <EditServer
+          visible={editSrv}
+          setVisible={setEditSrv}
+          serverId={chatRoom}
+        />
+      )}
       <Profile visible={profile} setVisible={setProfile} />
       <Layout hasSider>
         <Sider
@@ -138,11 +142,14 @@ function Chat() {
                     >
                       Get Invite
                     </Menu.Item>
-                    <Menu.Item icon={<EditOutlined />} onClick={
-                      () => {
+                    <Menu.Item
+                      icon={<EditOutlined />}
+                      onClick={() => {
                         setEditSrv(true);
-                      }
-                    }>Edit Server</Menu.Item>
+                      }}
+                    >
+                      Edit Server
+                    </Menu.Item>
                     <Menu.Item icon={<CloseOutlined />}>Leave Server</Menu.Item>
                   </Menu>
                 }

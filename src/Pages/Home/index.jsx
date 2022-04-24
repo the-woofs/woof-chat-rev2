@@ -29,7 +29,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
-const db = getFirestore()
+const db = getFirestore();
 
 function Home() {
   const [user, loading] = useAuthState(auth);
@@ -59,17 +59,18 @@ function Conditional404() {
 
   if (document) {
     return <Chat />;
-  }
-
-  else if (loading) {
+  } else if (loading) {
     return <div>Loading...</div>;
+  } else {
+    return (
+      <>
+        <h1>404</h1>
+        <Button type="primary" onClick={() => navigate("/WoofChatR2")}>
+          Go To Home Chat Room
+        </Button>
+      </>
+    );
   }
-
-  else {
-    return <><h1>404</h1>
-    <Button type="primary" onClick={() => navigate("/WoofChatR2")}>Go To Home Chat Room</Button></>;
-  }
-
 }
 
 export default Home;

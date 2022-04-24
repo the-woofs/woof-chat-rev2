@@ -9,10 +9,22 @@ function ChatRoomName(props) {
 
   const [chatRoomDoc] = useDocument(doc(db, "chat", chatRoom));
 
-  return <>
-  {chatRoomDoc && chatRoomDoc.data() && <> <Avatar src={chatRoomDoc.data().pfp} style={{
-    marginRight: "10px",
-  }}/> {chatRoomDoc.data().name}</>}</>;
+  return (
+    <>
+      {chatRoomDoc && chatRoomDoc.data() && (
+        <>
+          {" "}
+          <Avatar
+            src={chatRoomDoc.data().pfp}
+            style={{
+              marginRight: "10px",
+            }}
+          />{" "}
+          {chatRoomDoc.data().name}
+        </>
+      )}
+    </>
+  );
 }
 
 export default ChatRoomName;

@@ -51,7 +51,7 @@ function AvatarUpload(props) {
           let data = {
             pfp: url,
           };
-          setPfp(url)
+          setPfp(url);
           const docRef = doc(db, "chat", serverId);
           updateDoc(docRef, data).then(() => {
             setAvatar(url);

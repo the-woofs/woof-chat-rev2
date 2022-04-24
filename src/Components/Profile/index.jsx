@@ -85,7 +85,11 @@ function Profile(props) {
             <AvatarUpload />
           </Form.Item>
           <Form.Item label="Name">
-            <Input maxLength={16} value={name} onChange={(e) => setName(e.target.value)} />
+            <Input
+              maxLength={16}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </Form.Item>
           <Form.Item label="Description">
             <Input.TextArea
