@@ -5,7 +5,6 @@ import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
 import { UserOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 
 const db = getFirestore();
 const auth = getAuth();
