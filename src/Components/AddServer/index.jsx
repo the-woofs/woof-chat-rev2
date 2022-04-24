@@ -130,6 +130,7 @@ function AddServer(props) {
             </p>
             <Button
               block
+              type="primary"
               onClick={() => {
                 setJoin(true);
               }}
