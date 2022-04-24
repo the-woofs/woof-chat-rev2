@@ -15,10 +15,10 @@ import {
   DownOutlined,
   UserAddOutlined,
   EditOutlined,
-  CloseOutlined,
 } from "@ant-design/icons";
 import UserInfo from "../../Components/UserInfo";
 import Profile from "../../Components/Profile";
+import LeaveServer from "../../Components/LeaveServer";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -150,7 +150,7 @@ function Chat() {
                     >
                       Edit Server
                     </Menu.Item>
-                    <Menu.Item icon={<CloseOutlined />}>Leave Server</Menu.Item>
+                    <LeaveServer serverId={chatRoom}/>
                   </Menu>
                 }
               >
