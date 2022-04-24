@@ -25,7 +25,6 @@ function AddServer(props) {
 
   const [create, setCreate] = useState(false);
   const [invite, setInvite] = useState("");
-  const [joinType, setJoinType] = useState("ghost");
 
   const navigate = useNavigate();
 
