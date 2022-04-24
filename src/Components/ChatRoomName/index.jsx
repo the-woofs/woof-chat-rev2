@@ -1,3 +1,4 @@
+import { Avatar } from "antd";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 
@@ -8,7 +9,10 @@ function ChatRoomName(props) {
 
   const [chatRoomDoc] = useDocument(doc(db, "chat", chatRoom));
 
-  return <>{chatRoomDoc && chatRoomDoc.data() && chatRoomDoc.data().name}</>;
+  return <>
+  {chatRoomDoc && chatRoomDoc.data() && <> <Avatar src={chatRoomDoc.data().pfp} style={{
+    marginRight: "10px",
+  }}/> {chatRoomDoc.data().name}</>}</>;
 }
 
 export default ChatRoomName;

@@ -7,7 +7,7 @@ import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 import AvatarUpload from "../AvatarUpload";
 import Modal from "antd/lib/modal/Modal";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const db = getFirestore();
 const auth = getAuth();
@@ -21,7 +21,7 @@ function Profile(props) {
 
   const [logOutPopup, setLogOutPopup] = useState(false);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   useEffect(() => {
     if (userDoc) {
@@ -107,7 +107,7 @@ function Profile(props) {
           Logout
         </Button>
 
-        <Button
+        {/* <Button
           danger
           type="primary"
           onClick={() => {
@@ -116,7 +116,7 @@ function Profile(props) {
           }}
         >
           Delete Account
-        </Button>
+        </Button> */}
       </Modal>
       <Modal
         centered

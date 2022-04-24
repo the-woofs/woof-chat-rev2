@@ -1,5 +1,5 @@
 import { Avatar, Button, Divider, Menu } from "antd";
-import { getFirestore, collection } from "firebase/firestore";
+import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -13,17 +13,39 @@ const auth = getAuth();
 
 function ChatMenu(props) {
   const chatRoomsRef = collection(db, "u", auth.currentUser.uid, "chats");
-  const [chatRooms] = useCollectionData(chatRoomsRef);
+  const [chatRoomsProf] = useCollectionData(chatRoomsRef);
 
+  const [chatRooms, setChatRooms] = useState([]);
   const [menuVisible, setMenuVisible] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (chatRooms) {
-      console.log(chatRooms);
+    if (chatRoomsProf) {
+      console.log(chatRoomsProf);
+      for (let chatRoomProf of chatRoomsProf) {
+        const chatRoomId = chatRoomProf.id;
+        const chatRoomDocRef = doc(collection(db, "chat"), chatRoomId);
+        getDoc(chatRoomDocRef).then((chatRoomDoc) => {
+          if (chatRoomDoc.exists) {
+            const chatRoomData = chatRoomDoc.data();
+            const chatRoomName = chatRoomData.name;
+            const chatRoomPfp = chatRoomData.pfp;
+            const chatRoom = {
+              id: chatRoomId,
+              name: chatRoomName,
+              pfp: chatRoomPfp,
+            };
+            if (!chatRooms.some((chatRoom) => chatRoom.id === chatRoomId)) {
+              setChatRooms((chatRooms) => [...chatRooms, chatRoom]);
+            }
+          }
+        } 
+        );
+      }
     }
-  }, [chatRooms]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatRoomsProf]);
 
   return (
     <>

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
-import { doc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { EditOutlined } from "@ant-design/icons";
 
 const db = getFirestore();
@@ -25,12 +25,7 @@ function AvatarUpload(props) {
       } else {
         setAvatar(`https://avatars.dicebear.com/api/bottts/${serverId}.svg`);
       }
-    } else {
-      console.log("no doc");
-      setDoc(doc(db, "chat", serverId), {
-        pfp: avatar,
-      });
-    }
+    } 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [srvDoc]);
 
@@ -55,6 +50,7 @@ function AvatarUpload(props) {
           const docRef = doc(db, "chat", serverId);
           updateDoc(docRef, data).then(() => {
             setAvatar(url);
+            setPfp(url)
             notification["success"]({
               message: "Uploaded",
               description: "Avatar uploaded successfully!",

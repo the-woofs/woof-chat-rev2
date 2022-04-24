@@ -11,7 +11,12 @@ import {
   Routes,
   Route,
   Navigate as Redirect,
+  useParams,
+  useNavigate,
 } from "react-router-dom";
+import { collection, doc, getFirestore } from "firebase/firestore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import { Button } from "antd";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGRAK-EfOOggku6WKGxcddXrezCx4qO_0",
@@ -24,6 +29,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
+const db = getFirestore()
 
 function Home() {
   const [user, loading] = useAuthState(auth);
@@ -35,13 +41,35 @@ function Home() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Redirect to="/WoofChatR2" />} />
-            <Route path="/:chatRoom" element={<Chat />} />
+            <Route path="/:chatRoom" element={<Conditional404 />} />
             <Route path="/t" element={<Test />} />
           </Routes>
         </Router>
       )}
     </>
   );
+}
+
+function Conditional404() {
+  const { chatRoom } = useParams();
+  const docRef = doc(collection(db, "chat"), chatRoom);
+  const [document, loading] = useDocumentData(docRef);
+
+  const navigate = useNavigate();
+
+  if (document) {
+    return <Chat />;
+  }
+
+  else if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  else {
+    return <><h1>404</h1>
+    <Button type="primary" onClick={() => navigate("/WoofChatR2")}>Go To Home Chat Room</Button></>;
+  }
+
 }
 
 export default Home;

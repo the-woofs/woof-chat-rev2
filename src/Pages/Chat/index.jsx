@@ -8,6 +8,7 @@ import MessageTextBox from "../../Components/MessageTextBox";
 import ChatContent from "../../Components/ChatContent";
 import ChatMenu from "../../Components/ChatMenu";
 import ChatRoomName from "../../Components/ChatRoomName";
+import EditServer from "../../Components/EditServer";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -27,6 +28,8 @@ function Chat() {
   const [isOpen, setIsOpen] = useState(false);
   const [width, setWidth] = useState(200);
   const [profile, setProfile] = useState(false);
+  
+  const [editSrv, setEditSrv] = useState(false);
 
   useEffect(() => {
     if (isCollapsed) {
@@ -36,6 +39,9 @@ function Chat() {
 
   return (
     <div className="Chat">
+      {
+        editSrv && <EditServer visible={editSrv} setVisible={setEditSrv} serverId={ chatRoom } /> 
+      }
       <Profile visible={profile} setVisible={setProfile} />
       <Layout hasSider>
         <Sider
@@ -132,7 +138,11 @@ function Chat() {
                     >
                       Get Invite
                     </Menu.Item>
-                    <Menu.Item icon={<EditOutlined />}>Edit Server</Menu.Item>
+                    <Menu.Item icon={<EditOutlined />} onClick={
+                      () => {
+                        setEditSrv(true);
+                      }
+                    }>Edit Server</Menu.Item>
                     <Menu.Item icon={<CloseOutlined />}>Leave Server</Menu.Item>
                   </Menu>
                 }
