@@ -16,8 +16,6 @@ function UserInfo(props) {
   const [name, setName] = useState("");
   const [userDoc] = useDocumentOnce(doc(db, "u", auth.currentUser.uid));
 
-  let navigate = useNavigate();
-
   useEffect(() => {
     if (userDoc) {
       setName(userDoc.data().name);

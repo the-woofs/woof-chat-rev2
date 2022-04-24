@@ -34,7 +34,6 @@ function AvatarUpload() {
   }, [userDoc]);
 
   const [file, setFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
     if (file) {
@@ -48,7 +47,6 @@ function AvatarUpload() {
       });
       uploadBytes(profileRef, file).then(() => {
         getDownloadURL(profileRef).then((url) => {
-          setPreviewUrl(url);
           setAvatar(url);
           let data;
           if (desc) {
