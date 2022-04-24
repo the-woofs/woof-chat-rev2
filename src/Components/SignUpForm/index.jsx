@@ -83,16 +83,16 @@ function SignUpForm() {
         name="username"
         rules={[{ required: true, message: "Please provide a username." }]}
       >
-        <Input maxLength={16} />
+        <Input placeholder="Username" maxLength={16} />
       </Form.Item>
       <Form.Item
-        label="Email Address"
+        label="Emails"
         name="email"
         rules={[
           { required: true, message: "Please provide your email address." },
         ]}
       >
-        <Input />
+        <Input placeholder="Email" />
       </Form.Item>
 
       <Form.Item
@@ -100,15 +100,15 @@ function SignUpForm() {
         name="password"
         rules={[{ required: true, message: "Please provide a password." }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Password" />
       </Form.Item>
 
       <Form.Item
-        label="Repeat Password"
+        label="Confirm"
         name="confirm"
         rules={[{ required: true, message: "Please repeat your password." }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Confirm Password" />
       </Form.Item>
 
       <br />
