@@ -23,7 +23,7 @@ function AddServer(props) {
 
   const [docId, setDocId] = useState("");
 
-  const [join, setJoin] = useState(false);
+  const [create, setCreate] = useState(false);
   const [invite, setInvite] = useState("");
 
   const navigate = useNavigate();
@@ -48,9 +48,49 @@ function AddServer(props) {
     <>
       <Modal
         title="Join Server"
+        onCancel={
+          () => {
+            setMenuVisible(false);
+          }
+        }
         centered
-        visible={join}
-        onOk={async () => {
+        footer={
+          <>
+            <p
+              style={{
+                textAlign: "center",
+              }}
+            >
+              Don't have a chat room?{" "}
+            </p>
+            <Button
+              block
+              onClick={() => {
+                setCreate(true);
+              }}
+            >
+              Create Server
+            </Button>
+          </>
+        }
+        visible={visible}
+      >
+        <Form
+                   
+        >
+          <Form.Item label="Server Invite"
+
+          >
+            <Input
+              value={invite}
+              onChange={(e) => setInvite(e.target.value)}
+              placeholder="Server Invite"
+            />
+          </Form.Item>
+          <Form.Item
+          >
+            <Button block type="primary" onClick={
+async () => {
           const docRef = doc(collection(db, "chat"), invite);
           const docu = await getDoc(docRef);
           if (docu.exists) {
@@ -81,31 +121,25 @@ function AddServer(props) {
               { id: auth.currentUser.uid }
             );
             navigate(`/${docId}`);
-            setJoin(false);
             setMenuVisible(false);
+            setCreate(false);
           }
-        }}
-        onCancel={() => {
-          setJoin(false);
-        }}
-      >
-        <Form>
-          <Form.Item label="Server Invite">
-            <Input
-              value={invite}
-              onChange={(e) => setInvite(e.target.value)}
-              placeholder="Server Invite"
-            />
+        }
+            } 
+            >
+              Join
+            </Button>
           </Form.Item>
         </Form>
       </Modal>
       <Modal
         centered
-        title="Add Server"
-        visible={visible && !join}
+        title="Create Server"
+        visible={create}
         onCancel={async () => {
           console.log("cancel");
-          setMenuVisible(false);
+          setCreate(false);
+          setMenuVisible(true);
           const docRef = doc(collection(db, "chat"), docId);
           const docu = await getDoc(docRef);
 
@@ -119,26 +153,7 @@ function AddServer(props) {
             }
           }
         }}
-        footer={
-          <>
-            <p
-              style={{
-                textAlign: "center",
-              }}
-            >
-              Already have an invite?{" "}
-            </p>
-            <Button
-              block
-              type="primary"
-              onClick={() => {
-                setJoin(true);
-              }}
-            >
-              Join Server
-            </Button>
-          </>
-        }
+
       >
         <Form layout="vertical">
           <Form.Item label="Avatar">
