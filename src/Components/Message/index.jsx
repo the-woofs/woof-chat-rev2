@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { doc, getFirestore } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 
-import { Comment } from "antd";
+import { Avatar, Comment } from "antd";
+import ProfilePopup from "../ProfilePopup";
+
+import ReactMarkdown from "react-markdown";
 
 import { grey } from "@ant-design/colors";
 
@@ -41,8 +44,12 @@ function Message(props) {
             {userName}
           </h1>
         }
-        avatar={avatar}
-        content={message}
+        avatar={
+          <ProfilePopup userId={authorId}>
+            <Avatar src={avatar} />
+          </ProfilePopup>
+        }
+        content={<ReactMarkdown>{message}</ReactMarkdown>}
         datetime={timestamp}
       />
     </>

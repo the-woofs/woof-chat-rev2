@@ -81,7 +81,13 @@ function SignUpForm() {
       <Form.Item
         label="Username"
         name="username"
-        rules={[{ required: true, message: "Please provide a username.", whitespace: true }]}
+        rules={[
+          {
+            required: true,
+            message: "Please provide a username.",
+            whitespace: true,
+          },
+        ]}
       >
         <Input placeholder="Username" maxLength={16} />
       </Form.Item>

@@ -150,7 +150,7 @@ function Chat() {
                     >
                       Edit Server
                     </Menu.Item>
-                    <LeaveServer serverId={chatRoom}/>
+                    <LeaveServer serverId={chatRoom} />
                   </Menu>
                 }
               >

@@ -116,7 +116,7 @@ function AddServer(props) {
                     doc(db, "chat", invite, "members", auth.currentUser.uid),
                     { id: auth.currentUser.uid }
                   );
-                  navigate(`/${docId}`);
+                  navigate(`/${invite}`);
                   setMenuVisible(false);
                   setCreate(false);
                 }
