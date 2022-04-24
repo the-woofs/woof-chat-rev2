@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "woof-chat-r2"
+  },
+  "targets": {
+    "woof-chat-r2": {
+      "hosting": {
+        "chatMain": [
+          "woofs-bark"
+        ]
+      }
+    }
   }
 }
