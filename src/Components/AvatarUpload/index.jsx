@@ -15,14 +15,10 @@ const storage = getStorage();
 
 function AvatarUpload() {
   const [avatar, setAvatar] = useState("");
-  const [name, setName] = useState("");
-  const [desc, setDesc] = useState("");
   const [userDoc] = useDocumentOnce(doc(db, "u", auth.currentUser.uid));
 
   useEffect(() => {
     if (userDoc) {
-      setName(userDoc.data().name);
-      setDesc(userDoc.data().desc);
       if (userDoc.data().pfp) {
         setAvatar(userDoc.data().pfp);
       } else {
@@ -48,19 +44,9 @@ function AvatarUpload() {
       uploadBytes(profileRef, file).then(() => {
         getDownloadURL(profileRef).then((url) => {
           setAvatar(url);
-          let data;
-          if (desc) {
-            data = {
-              name: name,
-              desc: desc,
-              pfp: url,
-            };
-          } else {
-            data = {
-              name: name,
-              pfp: url,
-            };
-          }
+          let data = {
+            pfp: url,
+          };
           const docRef = doc(db, "u", auth.currentUser.uid);
           updateDoc(docRef, data);
           notification["success"]({

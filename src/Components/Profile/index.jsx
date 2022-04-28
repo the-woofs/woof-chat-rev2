@@ -1,5 +1,5 @@
 import "./index.css";
-import { Button, Divider, Form, Input, notification } from "antd";
+import { Button, Col, Divider, Form, Input, notification, Row } from "antd";
 
 import { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
@@ -7,6 +7,7 @@ import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
 import AvatarUpload from "../AvatarUpload";
 import Modal from "antd/lib/modal/Modal";
+import UserCoverUpload from "../UserCoverUpload";
 // import { useNavigate } from "react-router-dom";
 
 const db = getFirestore();
@@ -81,9 +82,18 @@ function Profile(props) {
         cancelText="Exit"
       >
         <Form layout="vertical">
-          <Form.Item label="Avatar">
-            <AvatarUpload />
-          </Form.Item>
+          <Row>
+            <Col flex="150px">
+              <Form.Item label="Avatar">
+                <AvatarUpload />
+              </Form.Item>
+            </Col>
+            <Col flex="auto">
+              <Form.Item label="Cover Art">
+                <UserCoverUpload />
+              </Form.Item>
+            </Col>
+          </Row>
           <Form.Item label="Name">
             <Input
               maxLength={16}
